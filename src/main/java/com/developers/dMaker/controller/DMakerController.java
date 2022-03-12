@@ -1,7 +1,7 @@
 package com.developers.dMaker.controller;
 
 import com.developers.dMaker.dto.CreateDeveloper;
-import com.developers.dMaker.service.DmakerService;
+import com.developers.dMaker.service.DMakerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,11 +19,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class DMakerController {
     /*
-    DMakerController(Bean) ->  DmakerService(Bean) -> DeveloperRepository(Bean)
+    DMakerController(Bean) ->  DMakerService(Bean) -> DeveloperRepository(Bean)
     ======= SPRING Application ========
     */
 
-    private final DmakerService dmakerService;
+    private final DMakerService dmakerService;
 
     @GetMapping("/developers")
     public List<String> getAllDevelopers() {
@@ -32,9 +32,10 @@ public class DMakerController {
         return Arrays.asList("snow", "elsa", "olaf");
     }
 
-    // TEST를 위한 컨트롤러 메서드 추가 - 실제는 POST로 사용
     @PostMapping("/create-developers")
-    public List<String> createdevelopers(@Valid @RequestBody CreateDeveloper.Request request) {
+    public List<String> createdevelopers(
+            @Valid @RequestBody CreateDeveloper.Request request
+    ) {
         log.info("POST /create-developers HTTP/1.1 ");
         log.info("requset : {}", request);
 

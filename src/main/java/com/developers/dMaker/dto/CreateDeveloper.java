@@ -18,19 +18,20 @@ public class CreateDeveloper {
     @Builder
     @ToString
     public static class Request{
-        @NotNull
+        @NotNull    // 빈값 허용 X
         private DeveloperLevel developerLevel;
 
         @NotNull
         private DeveloperSkillType developerSkillType;
 
         @NotNull
-        @Min(0)
-        @Max(20)
+        @Min(0)     // 최소 0
+        @Max(20)    // 최대 20
         private Integer experienceYears;
 
         @NotNull
         @Size(min = 3, max = 50, message = "memberId size must 3~50")
+        // 데이터 크기 정의 : 최소 3, 최대 50, Error 메시지 작성
         private String memberId;
 
         @NotNull

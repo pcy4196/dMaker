@@ -6,3 +6,4 @@
 + Ch03. H2 DB 설정 및 DB 저장 기능 구현
 + Ch04. AOP, Transactional
 + Ch05. Data Validation
++ Ch06. Business Validation

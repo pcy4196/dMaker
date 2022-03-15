@@ -2,6 +2,7 @@ package com.developers.dMaker.dto;
 
 import com.developers.dMaker.Type.DeveloperLevel;
 import com.developers.dMaker.Type.DeveloperSkillType;
+import com.developers.dMaker.entity.Developer;
 import lombok.*;
 
 import javax.validation.constraints.Max;
@@ -51,7 +52,15 @@ public class CreateDeveloper {
         private DeveloperLevel developerLevel;
         private DeveloperSkillType developerSkillType;
         private Integer experienceYears;
-
         private String memberId;
+
+        public static Response fromEntity(Developer developer) {
+            return Response.builder()
+                    .developerLevel(developer.getDeveloperLevel())
+                    .developerSkillType(developer.getDeveloperSkillType())
+                    .experienceYears(developer.getExperienceYear())
+                    .memberId(developer.getMemberId())
+                    .build();
+        }
     }
 }

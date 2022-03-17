@@ -1,0 +1,13 @@
+GET http://localhost:8080/developers
+Content-Type: application/json;charset=utf-8
+
+###
+#[
+#  {
+#    "developerLevel": "JUNIOR",
+#    "developerSkillType": "FRONT_END",
+#    "memberId": "Micky"
+#  }
+#]
+###
+

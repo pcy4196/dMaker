@@ -7,4 +7,5 @@
 + Ch04. AOP, Transactional
 + Ch05. Data Validation
 + Ch06. Business Validation
-+ Ch07. http TEST 구현(CREATE - Developer POST)
++ Ch07. Developer Post(추가) 기능 구현
++ Ch08. Developer Get(조회) 기능 구현

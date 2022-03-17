@@ -4,12 +4,16 @@ import com.developers.dMaker.Exception.DMakerException;
 import com.developers.dMaker.Type.DeveloperLevel;
 import com.developers.dMaker.Type.DeveloperSkillType;
 import com.developers.dMaker.dto.CreateDeveloper;
+import com.developers.dMaker.dto.DeveloperDto;
 import com.developers.dMaker.entity.Developer;
 import com.developers.dMaker.repository.DeveloperRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.developers.dMaker.Exception.DMakerErrorCode.*;
 
@@ -58,5 +62,11 @@ public class DMakerService {
                 .ifPresent(developer -> {
                     throw new DMakerException(DUPLICATED_MEMBER_ID);
                 });
+    }
+
+    public List<DeveloperDto> getAllDevelopers() {
+        return developerRepository.findAll()
+                .stream().map(DeveloperDto::fromEntity)
+                .collect(Collectors.toList());
     }
 }

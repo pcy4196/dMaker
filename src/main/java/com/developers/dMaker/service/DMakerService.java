@@ -4,6 +4,7 @@ import com.developers.dMaker.Exception.DMakerException;
 import com.developers.dMaker.Type.DeveloperLevel;
 import com.developers.dMaker.Type.DeveloperSkillType;
 import com.developers.dMaker.dto.CreateDeveloper;
+import com.developers.dMaker.dto.DeveloperDetailDto;
 import com.developers.dMaker.dto.DeveloperDto;
 import com.developers.dMaker.entity.Developer;
 import com.developers.dMaker.repository.DeveloperRepository;
@@ -68,5 +69,11 @@ public class DMakerService {
         return developerRepository.findAll()
                 .stream().map(DeveloperDto::fromEntity)
                 .collect(Collectors.toList());
+    }
+
+    public DeveloperDetailDto getAllDeveloperDetail(String memberId) {
+        return developerRepository.findByMemberId(memberId)
+                .map(DeveloperDetailDto::fromEntity)
+                .orElseThrow(() -> new DMakerException(NO_DEVELOPER)); // 값이 없을때 오류 반환
     }
 }

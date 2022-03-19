@@ -2,6 +2,7 @@ package com.developers.dMaker.dto;
 
 import com.developers.dMaker.Type.DeveloperLevel;
 import com.developers.dMaker.Type.DeveloperSkillType;
+import com.developers.dMaker.Type.StatusCode;
 import com.developers.dMaker.entity.Developer;
 import lombok.*;
 
@@ -18,6 +19,7 @@ public class DeveloperDetailDto {
     private String memberId;
     private String name;
     private Integer age;
+    private StatusCode statusCode;
 
     public static DeveloperDetailDto fromEntity(Developer developer) {
         return DeveloperDetailDto.builder()
@@ -25,6 +27,7 @@ public class DeveloperDetailDto {
                 .developerLevel(developer.getDeveloperLevel())
                 .experienceYear(developer.getExperienceYear())
                 .memberId(developer.getMemberId())
+                .statusCode(developer.getStatusCode())
                 .name(developer.getName())
                 .age(developer.getAge())
                 .build();

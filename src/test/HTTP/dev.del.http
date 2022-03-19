@@ -1,0 +1,6 @@
+DELETE http://localhost:8080/developer/Mini
+Content-Type: application/json;charset=utf-8
+
+### EditDevelopers TEST
+
+

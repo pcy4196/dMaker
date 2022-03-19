@@ -1,4 +1,4 @@
-GET http://localhost:8080/developer/Micky
+GET http://localhost:8080/developer/Mini
 Content-Type: application/json;charset=utf-8
 
 ###
@@ -6,7 +6,7 @@ Content-Type: application/json;charset=utf-8
 #  "developerLevel": "JUNIOR",
 #  "developerSkillType": "FRONT_END",
 #  "experienceYear": 2,
-#  "memberId": "Micky",
+#  "memberId": "Mini",
 #  "name": "mouse",
 #  "age": 20
 #}

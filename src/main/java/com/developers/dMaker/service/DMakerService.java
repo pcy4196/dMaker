@@ -2,10 +2,10 @@ package com.developers.dMaker.service;
 
 import com.developers.dMaker.Exception.DMakerException;
 import com.developers.dMaker.Type.DeveloperLevel;
-import com.developers.dMaker.Type.DeveloperSkillType;
 import com.developers.dMaker.dto.CreateDeveloper;
 import com.developers.dMaker.dto.DeveloperDetailDto;
 import com.developers.dMaker.dto.DeveloperDto;
+import com.developers.dMaker.dto.EditDeveloper;
 import com.developers.dMaker.entity.Developer;
 import com.developers.dMaker.repository.DeveloperRepository;
 import lombok.RequiredArgsConstructor;
@@ -42,22 +42,39 @@ public class DMakerService {
         return CreateDeveloper.Response.fromEntity(developer);
     }
 
-    // 파라미터 CHECK
+    public List<DeveloperDto> getAllDevelopers() {
+        return developerRepository.findAll()
+                .stream().map(DeveloperDto::fromEntity)
+                .collect(Collectors.toList());
+    }
+
+    public DeveloperDetailDto getDeveloperDetail(String memberId) {
+        return developerRepository.findByMemberId(memberId)
+                .map(DeveloperDetailDto::fromEntity)
+                .orElseThrow(() -> new DMakerException(NO_DEVELOPER)); // 값이 없을때 오류 반환
+    }
+
+    @Transactional
+    public DeveloperDetailDto editDeveloper(String memberId, EditDeveloper.Request request) {
+        validateEditDeveloperRequest(memberId, request);
+
+        Developer developer = developerRepository.findByMemberId(memberId)
+                .orElseThrow(() -> new DMakerException(NO_DEVELOPER));
+
+        developer.setDeveloperLevel(request.getDeveloperLevel());
+        developer.setDeveloperSkillType(request.getDeveloperSkillType());
+        developer.setExperienceYear(request.getExperienceYears());
+
+        return DeveloperDetailDto.fromEntity(developer);
+    }
+
+    // 파라미터 CHECK(Create)
     private void validateCreateDeveloperRequest(CreateDeveloper.Request request)
             throws DMakerException {
         // Business Validation
         DeveloperLevel developerLevel = request.getDeveloperLevel();
         Integer experienceYears = request.getExperienceYears();
-        if (developerLevel == DeveloperLevel.SENIOR
-                && experienceYears < 10) {
-            throw new DMakerException(LEVEL_EXPERIENCE_YEARS_NOT_MATCHED);
-        } else if (developerLevel == DeveloperLevel.JUNGNIOR
-                    && (experienceYears < 4 || experienceYears > 10)) {
-            throw new DMakerException(LEVEL_EXPERIENCE_YEARS_NOT_MATCHED);
-        } else if (developerLevel == DeveloperLevel.JUNIOR
-                && experienceYears > 4) {
-            throw new DMakerException(LEVEL_EXPERIENCE_YEARS_NOT_MATCHED);
-        }
+        validateDeveloperLevel(developerLevel, experienceYears);
 
         developerRepository.findByMemberId(request.getMemberId())
                 .ifPresent(developer -> {
@@ -65,15 +82,24 @@ public class DMakerService {
                 });
     }
 
-    public List<DeveloperDto> getAllDevelopers() {
-        return developerRepository.findAll()
-                .stream().map(DeveloperDto::fromEntity)
-                .collect(Collectors.toList());
+    // 파라미터 CHECK(Update)
+    private void validateEditDeveloperRequest(String memberId, EditDeveloper.Request request) {
+        // Business Validation
+        DeveloperLevel developerLevel = request.getDeveloperLevel();
+        Integer experienceYears = request.getExperienceYears();
+        validateDeveloperLevel(developerLevel, experienceYears);
     }
 
-    public DeveloperDetailDto getAllDeveloperDetail(String memberId) {
-        return developerRepository.findByMemberId(memberId)
-                .map(DeveloperDetailDto::fromEntity)
-                .orElseThrow(() -> new DMakerException(NO_DEVELOPER)); // 값이 없을때 오류 반환
+    private void validateDeveloperLevel(DeveloperLevel developerLevel, Integer experienceYears) {
+        if (developerLevel == DeveloperLevel.SENIOR
+                && experienceYears < 10) {
+            throw new DMakerException(LEVEL_EXPERIENCE_YEARS_NOT_MATCHED);
+        } else if (developerLevel == DeveloperLevel.JUNGNIOR
+                && (experienceYears < 4 || experienceYears > 10)) {
+            throw new DMakerException(LEVEL_EXPERIENCE_YEARS_NOT_MATCHED);
+        } else if (developerLevel == DeveloperLevel.JUNIOR
+                && experienceYears > 4) {
+            throw new DMakerException(LEVEL_EXPERIENCE_YEARS_NOT_MATCHED);
+        }
     }
 }

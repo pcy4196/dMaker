@@ -1,0 +1,11 @@
+PUT http://localhost:8080/developer/Mini
+Content-Type: application/json;charset=utf-8
+
+{
+  "developerLevel":"JUNGNIOR",
+  "developerSkillType":"FRONT_END",
+  "experienceYears":5
+}
+### EditDevelopers TEST
+
+

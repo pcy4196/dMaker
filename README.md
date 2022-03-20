@@ -11,4 +11,4 @@
 + Ch08. Developer Get(조회) 기능 구현
 + Ch09. Developer Put(수정) 기능 구현
 + Ch10. Developer Delete(삭제) 기능 구현
-+ Ch11. 글로벌 예외처리 기법
++ Ch11. 예외처리 기법(Controller, Global)

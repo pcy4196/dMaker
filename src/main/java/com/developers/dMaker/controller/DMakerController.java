@@ -68,16 +68,16 @@ public class DMakerController {
         return dmakerService.deleteDeveloper(memberId);
     }
 
-    // DmakerController 전용 Exception
-    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
-    @ExceptionHandler(DMakerException.class)
-    public DmakerErrorResponse handleException(DMakerException e, HttpServletRequest request) {
-        log.error("errorCode : {}, url : {}, message : {}", 
-                e.getDMakerErrorCode(), request.getRequestURI(), e.getDetailMessage());
-        
-        return DmakerErrorResponse.builder()
-                .errorCode(e.getDMakerErrorCode())
-                .errorMessage(e.getDetailMessage())
-                .build();
-    }
+//    // DmakerController 전용 Exception
+//    @ResponseStatus(value = HttpStatus.CONFLICT)
+//    @ExceptionHandler(DMakerException.class)
+//    public DmakerErrorResponse handleException(DMakerException e, HttpServletRequest request) {
+//        log.error("errorCode : {}, url : {}, message : {}",
+//                e.getDMakerErrorCode(), request.getRequestURI(), e.getDetailMessage());
+//
+//        return DmakerErrorResponse.builder()
+//                .errorCode(e.getDMakerErrorCode())
+//                .errorMessage(e.getDetailMessage())
+//                .build();
+//    }
 }

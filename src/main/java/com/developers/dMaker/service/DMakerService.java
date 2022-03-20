@@ -2,7 +2,6 @@ package com.developers.dMaker.service;
 
 import com.developers.dMaker.Exception.DMakerException;
 import com.developers.dMaker.Type.DeveloperLevel;
-import com.developers.dMaker.Type.StatusCode;
 import com.developers.dMaker.dto.CreateDeveloper;
 import com.developers.dMaker.dto.DeveloperDetailDto;
 import com.developers.dMaker.dto.DeveloperDto;
@@ -20,7 +19,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.developers.dMaker.Exception.DMakerErrorCode.*;
-import static com.developers.dMaker.Type.StatusCode.*;
+import static com.developers.dMaker.Type.StatusCode.EMPLOYED;
+import static com.developers.dMaker.Type.StatusCode.RETIRED;
 
 @Slf4j
 @Service
@@ -78,9 +78,7 @@ public class DMakerService {
     private void validateCreateDeveloperRequest(CreateDeveloper.Request request)
             throws DMakerException {
         // Business Validation
-        DeveloperLevel developerLevel = request.getDeveloperLevel();
-        Integer experienceYears = request.getExperienceYears();
-        validateDeveloperLevel(developerLevel, experienceYears);
+        validateDeveloperLevel(request.getDeveloperLevel(), request.getExperienceYears());
 
         developerRepository.findByMemberId(request.getMemberId())
                 .ifPresent(developer -> {
@@ -91,9 +89,7 @@ public class DMakerService {
     // 파라미터 CHECK(Update)
     private void validateEditDeveloperRequest(String memberId, EditDeveloper.Request request) {
         // Business Validation
-        DeveloperLevel developerLevel = request.getDeveloperLevel();
-        Integer experienceYears = request.getExperienceYears();
-        validateDeveloperLevel(developerLevel, experienceYears);
+        validateDeveloperLevel(request.getDeveloperLevel(), request.getExperienceYears());
     }
 
     private void validateDeveloperLevel(DeveloperLevel developerLevel, Integer experienceYears) {
